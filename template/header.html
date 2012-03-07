@@ -1,0 +1,30 @@
+<div id="header"><div class="con">
+	<a id="logo" href="/"></a>
+{if $PageName != "IndexPage" && $PageName != "AboutPage"}  
+	<div id="current_city">
+		<span>{if $CurrentCityName}{$CurrentCityName}{else}全国{/if}</span>
+		<a href="/huan_chengshi">换个城市</a>
+	</div>
+{else}
+    <div id="current_city">
+        <span> —— 同城生活信息好帮手</span>
+    </div>
+{/if}
+	<div id="h_slogan"><a class="bold" href="/fabu{if $smarty.get.subject != ''}?fenlei={$smarty.get.subject}{/if}" rel="nofollow">免费发布信息</a> - <a href="javascript:void(0);" onclick="AddFav('我来123','http://www.{$smarty.const.__SITE_DOMAIN}/')">放入收藏夹</a></div>
+    <form method="GET" action="/search">
+	<div id="search">
+        <input name="cx" type="hidden" value="001356281603214205966:c9l39elnsym" />
+        <input name="cof" type="hidden" value="FORID:10" />
+        <input name="ie" type="hidden" value="UTF-8" />
+        <input type="hidden" name="click" value="yes" />
+		<input id="keyword" name="q" type="text" value="" />
+		<input id="search_button" type="image" src="{$smarty.const.__STATIC_SERVER}/img/search.png" align="absmiddle" value="搜索" />
+		<div id="suggess_content"></div>
+	</div>
+    </form>
+</div></div>
+{if $PageName != "IndexPage" && $PageName != "HomePage"}
+<div id="nav"><div class="con">
+	所在位置：{$BreadCrumb}
+</div></div>
+{/if}

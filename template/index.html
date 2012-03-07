@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" dir="ltr" lang="zh-CN">
+{include file="meta.html"}
+<body>
+
+{include file="header.html"}
+
+<div id="main" class="cf"><div class="con">
+{if $NoCity}
+	<div class="bottom">根据您的网络地址，我们建议您前往<a href="http://{$GotoCityURL}.{$smarty.const.__SITE_DOMAIN}">{$GotoCityName}站</a></div>
+	<div id="case_list">
+		<div class="bottom" style="text-indent:2em;float:left;font-family:微软雅黑,宋体;font-size:20px;color:#555;">在{$smarty.const.__SITE_NAME}，免费发布、查询 "二手车、二手家电、二手交易、家政保洁、租房、二手房、招聘求职、教育培训、商家服务" 等等同城生活广告信息。</div>
+		<h1 class="clear">最新发布的信息</h1>
+
+		<ul>
+	{if $CaseList}
+	{foreach name=forcaselist from=$CaseList item=theCase}
+			<li>
+	    {assign var=s value=$theCase.enter_time|date_format:"%m月 %d日 "}{$s|strip:""}{if $NoCity} <a class="gray" href="http://{$theCase.caka}.{$smarty.const.__SITE_DOMAIN}/">{$theCase.cname}</a>{/if} - <a class="gray" target="_blank" href="http://{$theCase.caka}.{$smarty.const.__SITE_DOMAIN}/{$theCase.saka}/" title="{$theCase.cname}{$theCase.sname}">{$theCase.sname}</a> - <a target="_blank" href="http://www.{$smarty.const.__SITE_DOMAIN}/{$theCase.saka}/c{$theCase.id}.html">{$theCase.title}</a>{if $theCase.images} <span class="tu" title="有图片">{if $theCase.image_count < 3}图{else}多图{/if}</span>{/if}{if $theCase.price}<span class="price"> - {$theCase.price|replace:'.00':''}元</span>{/if}
+	    {foreach name=taglist from=$theCase.tag_list item=theTag}
+	        <span class="tag">{$theTag|regex_replace:"/\d\|/":""}</span>
+            <div class="preview">{$theCase.content|strip_tags:false}...</div>
+	    {/foreach}
+	        </li>
+	{/foreach}
+	{/if}
+		</ul>
+
+		<div class="top20">根据您的网络地址，我们建议您前往<a href="http://{$GotoCityURL}.{$smarty.const.__SITE_DOMAIN}">{$GotoCityName}站</a></div>
+		
+	</div>
+{else}
+	<div class="gray bottom">在{$smarty.const.__SITE_NAME}{$CurrentCityName}，免费发布、查询 "二手车、二手家电、二手交易、家政保洁、租房、二手房、招聘求职、教育培训、商家服务" 等等同城生活广告信息。</div>
+	<div id="subject_list">
+{foreach item=theSubjectType from=$SubjectListGrouped}
+{if $theSubjectType.id == 3}
+		<div class="list2">
+{/if}
+		<div class="list highlightable"{if $theSubjectType.id == 4 || $theSubjectType.id == 184  } style="margin-top: 20px!important;"{/if}>
+			<div class="list_title"><a href="/{$theSubjectType.aka}/" title="{$CurrentCityName}{$theSubjectType.name}">{$theSubjectType.name}</a></div>
+{if $theSubjectType.subjects}
+			<div class="list_content">
+			<ul>
+{foreach item=theSubject from=$theSubjectType.subjects}
+				<li><a href="/{$theSubject.aka}/" title="{$CurrentCityName}{$theSubject.name}">{$theSubject.name}</a></li>
+{/foreach}
+			</ul>
+			</div>
+{/if}
+		</div>
+{if $theSubjectType.id == 4}
+		</div>
+{/if}
+{/foreach}
+	</div>
+{/if}
+	
+{include file="subcolumn.html"}
+
+<div id="coop"><span>合作伙伴：</span>{foreach item=theLink from=$Links}<a href="{$theLink.site_url}" target="_blank">{$theLink.name}</a>&nbsp;{foreachelse}暂无{/foreach}</div>
+</div></div>
+
+{include file="footer.html"}
+
+{include file="beforebody.html"}
+</body>
+</html>
